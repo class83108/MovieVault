@@ -1,28 +1,25 @@
 import { useState } from "react";
-import CircularGallery from "./CircularGallery";
-
-const key = import.meta.env.VITE_API_KEY;
 
 const tempMovieData = [
   {
     imdbID: "tt1375666",
-    text: "Inception",
+    Title: "Inception",
     Year: "2010",
-    image:
+    Poster:
       "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_SX300.jpg",
   },
   {
     imdbID: "tt0133093",
-    text: "The Matrix",
+    Title: "The Matrix",
     Year: "1999",
-    image:
+    Poster:
       "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
   },
   {
     imdbID: "tt6751668",
-    text: "Parasite",
+    Title: "Parasite",
     Year: "2019",
-    image:
+    Poster:
       "https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_SX300.jpg",
   },
 ];
@@ -91,7 +88,22 @@ export default function App() {
           >
             {isOpen1 ? "–" : "+"}
           </button>
-          {isOpen1 && <SearchMovieList movies={movies} />}
+          {isOpen1 && (
+            <ul className="list">
+              {movies?.map((movie) => (
+                <li key={movie.imdbID}>
+                  <img src={movie.Poster} alt={`${movie.Title} poster`} />
+                  <h3>{movie.Title}</h3>
+                  <div>
+                    <p>
+                      <span>🗓</span>
+                      <span>{movie.Year}</span>
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div className="box">
@@ -151,27 +163,6 @@ export default function App() {
           )}
         </div>
       </main>
-    </>
-  );
-}
-
-function SearchMovieList({ movies }) {
-  return <CircularGallery bend={0} items={movies} />;
-}
-
-function MovieListItem(movie) {
-  return (
-    <>
-      <li key={movie.imdbID}>
-        <img src={movie.Poster} alt={`${movie.Title} poster`} />
-        <h3>{movie.Title}</h3>
-        <div>
-          <p>
-            <span>🗓</span>
-            <span>{movie.Year}</span>
-          </p>
-        </div>
-      </li>
     </>
   );
 }
